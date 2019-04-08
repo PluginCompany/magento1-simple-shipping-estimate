@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Simple Shipping Estimate, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <simpleshippingestimate translate="title" module="simpleshippingestimate">
+                                        <title>Better Shipping Calculation Section</title>
+                                        <sort_order>321</sort_order>
+                                    </simpleshippingestimate>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

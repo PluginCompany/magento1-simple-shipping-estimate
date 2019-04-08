@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Simple Shipping Estimate, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+?>
+<?php
+/*
+ * Simple version of the shipping estimate block.
+ *
+ * If you would like to edit this file, please copy it to your custom theme folder first.
+ *
+*/
+
+	if(Mage::helper('checkout/cart')->getItemsCount()){
+	?>
+	<div id="monkshippingcalculator" class="shipping">
+		<h2><?php echo $this->__('Shipping method') ?></h2>
+		<div class="shipping-form">
+            <?php if (($_shippingRateGroups = Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getGroupedAllShippingRates())): ?>
+			<form method="post" id="shippingcalculatemonk" name="shippingcalculatemonk" action="<?php echo $this->getUrl('*/*/estimateUpdatePost'); ?>">
+				<select style="width:100%;" id="estimate_method" name="estimate_method" onchange="submitShippingCalculate()">
+                            <?php foreach ($_shippingRateGroups as $code => $_rates): ?>
+                                <?php echo $this->escapeHtml($this->getCarrierName($code)) ?>
+                                        <?php foreach ($_rates as $_rate):?>
+                                                    <option value="<?php echo $this->escapeHtml($_rate->getCode()) ?>" id="s_method_<?php echo $_rate->getCode() ?>"<?php if($_rate->getCode()===$this->getAddressShippingMethod()) echo ' selected="selected"' ?>>
+                                                        <?php echo ($_rate->getMethodTitle['is_logged_in'] ? $this->escapeHtml($_rate->getMethodTitle())  : $this->escapeHtml($_rate->getCarrierTitle())) ?>
+                                                    </option>
+                                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+				</select>
+			</form>
+            <?php endif; ?>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var collatteralbox = $$('div.cart-collaterals div.col-2')[0];
+		if(typeof collatteralbox != "undefined"){
+            collatteralbox.insert($('monkshippingcalculator'));
+		}
+
+		function submitShippingCalculate(){
+			$('shippingcalculatemonk').submit();
+		}
+	</script>
+<?php } ?>
